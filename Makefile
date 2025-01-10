@@ -26,7 +26,7 @@ build-in-docker:
 	docker run --rm --name fuzz_build -v .:/src -v ./out:/out -e FUZZING_LANGUAGE=c -e SANITIZER=address fuzz_arm:latest bash -c "cd nginx && compile"
 
 setup-protobuf-mutator:
-	make prepare
+	docker run --rm -v .:/src -v out:/out -it -e FUZZING_LANGUAGE=c -e SANITIZER=address fuzz_arm:latest bash -c 'make prepare'
 
 clean-fuzz:
 	docker rm fuzz_space
