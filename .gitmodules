@@ -1,0 +1,6 @@
+[submodule "nginx"]
+	path = nginx
+	url = git@github.com:nginx/nginx.git
+[submodule "libprotobuf-mutator"]
+	path = libprotobuf-mutator
+	url = https://github.com/google/libprotobuf-mutator.git
