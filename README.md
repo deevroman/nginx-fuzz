@@ -2,11 +2,13 @@
  
 Основано на проекте OSS-Fuzz с адаптацией под arm64 и фаззинг nginx.
 
-Клонируем репозиторий:
+### Клонируем репозиторий
 
 ```
 git clone --recurse-submodules git@github.com:deevroman/nginx-fuzz.git
 ```
+
+### Сборка образов
 
 Для запуска нужно собрать базовые docker-образы с необходимыми тулчейнами. OSS-Fuzz предоставляет только под x86, поэтому запасаемся терпением и собираем:
 
@@ -14,13 +16,19 @@ git clone --recurse-submodules git@github.com:deevroman/nginx-fuzz.git
 make build-base-images build-fuzz-image
 ```
 
-На выходе получаем образ `fuzz-base-builder` (основа) и `fuzz_arm` (конкретно для фаззинга nginx). Настраиванием `libprotobuf-mutator`:
+На выходе получаем образ `fuzz-base-builder` (основа) и `fuzz_arm` (конкретно для фаззинга nginx).
+
+### Сборка libprotobuf-mutator
 
 ```sh
 make setup-protobuf-mutator
 ```
 
-В проекте должна появится директории LPM. После этого запускаем сборку nginx c libfuzzer'ом. 
+В проекте должна появится директории LPM. 
+
+### Сборка
+
+Запускаем сборку nginx c libfuzzer'ом. 
 
 ```sh
 make build-in-docker
@@ -28,7 +36,9 @@ make build-in-docker
 
 В директории out появятся бинарь фаззера, который можно запустить. 
 
-Сразу собрать и запустить фаззинг можно так%
+### Запуска
+
+Можно также сразу собрать и запустить фаззинг:
 
 ```sh
 make clean-fuzz run-fuzz
