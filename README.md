@@ -12,13 +12,26 @@ git clone --recurse-submodules git@github.com:deevroman/nginx-fuzz.git
 
 ### Сборка образов
 
-Для запуска нужно собрать базовые docker-образы с необходимыми тулчейнами. OSS-Fuzz предоставляет только под x86, поэтому запасаемся терпением и собираем:
+Для запуска нужно собрать базовые docker-образы с необходимыми тулчейнами. 
+Для x86 можно воспрользоваться образами от OSS-fuzz:
+
+```sh
+make pull-x86-base-builder build-fuzz-image-x86
+```
+
+Но если у вас arm64... либо запасайтесь терпением и собирайте:
 
 ```sh
 make build-base-images build-fuzz-image
 ```
 
-На выходе получаем образ `fuzz-base-builder` (основа) и `fuzz_arm` (конкретно для фаззинга nginx).
+Либо используйте уже собранные:
+
+```sh
+make pull-base-builder build-fuzz-image
+```
+
+На выходе получаем образ `fuzz-base-builder` (базовый образ) и `fuzz_arm` (конкретно для фаззинга nginx).
 
 ### Сборка libprotobuf-mutator
 
@@ -26,7 +39,7 @@ make build-base-images build-fuzz-image
 make setup-protobuf-mutator
 ```
 
-В проекте должна появится директории LPM. 
+В проекте должна появиться директории LPM. 
 
 ### Сборка nginx
 

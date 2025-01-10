@@ -3,11 +3,26 @@ build-base-images:
 	cd docker && docker build --platform linux/arm64 . -t fuzz-base-clang -f base-clang.yml --build-arg arch=aarch64
 	cd docker && docker build --platform linux/arm64 . -t fuzz-base-builder -f base-builder.yml
 
+publish-base-builder:
+	docker tag fuzz-base-builder trickyfoxy/fuzz-base-builder
+	docker push trickyfoxy/fuzz-base-builder
+
+pull-base-builder:
+	docker pull trickyfoxy/fuzz-base-builder
+	docker tag trickyfoxy/fuzz-base-builder fuzz-base-builder
+
+pull-x86-base-builder:
+	docker pull gcr.io/oss-fuzz-base/base-builder
+	docker tag fuzz-base-builder
+
 no-cache-build-fuzz-image:
 	docker build --platform linux/arm64 . -t fuzz_arm --progress=plain --no-cache
 
 build-fuzz-image:
 	docker build --platform linux/arm64 . -t fuzz_arm --progress=plain
+
+build-fuzz-image-x86:
+	docker build . -t fuzz_arm --progress=plain
 
 bash:
 	docker start -i fuzz_sandbox
