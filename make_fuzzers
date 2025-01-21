@@ -33,7 +33,7 @@ objs/http_request_fuzzer: $ngx_deps_fuzz
   	 \$(SRC)/LPM/src/libprotobuf-mutator.a \
   	 -Wl,--start-group \$(SRC)/LPM/external.protobuf/lib/lib*.a -Wl,--end-group \
 	 $ngx_binexit$ngx_long_cont$ngx_objs \
-   	 \$(LIB_FUZZING_ENGINE) $ngx_libs$ngx_link$ngx_main_link -lcrypt
+   	 \$(LIB_FUZZING_ENGINE) $ngx_libs$ngx_link$ngx_main_link -lcrypt -fprofile-instr-generate -fcoverage-mapping
 $ngx_long_end					    
 
 END

@@ -48,3 +48,6 @@ clean-fuzz:
 
 run-fuzz:
 	docker run --name fuzz_space -v .:/src -v ./out:/out -it -e FUZZING_LANGUAGE=c -e SANITIZER=address fuzz_arm:latest bash -c "cd nginx && compile && /out/http_request_fuzzer"
+
+run-fuzz-with-cov:
+	docker run --name fuzz_space -v .:/src -v ./out:/out -it -e FUZZING_LANGUAGE=c -e SANITIZER=address fuzz_arm:latest bash -c "cd nginx && compile && LLVM_PROFILE_FILE=\"coverage.profraw\" /out/http_request_fuzzer -runs=10000; llvm-profdata merge -sparse coverage.profraw -o coverage.profdata && llvm-cov show /out/http_request_fuzzer -instr-profile=coverage.profdata --format=html > /out/coverage.html"

@@ -24,8 +24,8 @@ rm -rf genfiles && mkdir genfiles && $SRC/LPM/external.protobuf/bin/protoc http_
 cd ../..
 
 auto/configure \
-    --with-ld-opt="-Wl,--wrap=listen -Wl,--wrap=setsockopt -Wl,--wrap=bind -Wl,--wrap=shutdown -Wl,--wrap=connect -Wl,--wrap=getpwnam -Wl,--wrap=getgrnam -Wl,--wrap=chmod -Wl,--wrap=chown" \
-    --with-cc-opt='-DNGX_DEBUG_PALLOC=1' \
+    --with-ld-opt="-fprofile-instr-generate -fcoverage-mapping -Wl,--wrap=listen -Wl,--wrap=setsockopt -Wl,--wrap=bind -Wl,--wrap=shutdown -Wl,--wrap=connect -Wl,--wrap=getpwnam -Wl,--wrap=getgrnam -Wl,--wrap=chmod -Wl,--wrap=chown" \
+    --with-cc-opt='-DNGX_DEBUG_PALLOC=1 -fprofile-instr-generate -fcoverage-mapping' \
     --with-http_v2_module 
 make -j `nproc` -f objs/Makefile fuzzers
 
