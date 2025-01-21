@@ -67,7 +67,7 @@ make clean-fuzz run-fuzz
 make clean-fuzz run-fuzz-with-cov
 ```
 
-Получаемый HTML будет тяжёлым (~50 МБ)
+В папке out появится файл с coverage.html. Получаемый HTML будет тяжёлым (~50 МБ)
 
 ### TODO
 
